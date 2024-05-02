@@ -5,7 +5,10 @@ def get_collections():
     db = client.tournify
     collections = {
         "users": db.users,
-        "managers": db.managers
+        "managers": db.managers,
+        "players": db.players,
+        "player_stats": db.player_stats,
+        "games": db.games
     }
     return collections
 
@@ -27,3 +30,25 @@ def serialize_manager(manager) -> dict:
 
 def list_managers(managers) -> list:
     return [serialize_manager(manager) for manager in managers]
+
+def serialize_player(player) -> dict:
+    return {
+        "id": str(player["_id"]),
+        "username": player["username"],
+        "profile_pic": player["profile_pic"]
+    }
+
+def list_players(players) -> list:
+    return [serialize_manager(player) for player in players]
+
+def serialize_game(game) -> dict:
+    return {
+        "id": str(game["_id"]),
+        "user": game["user"],
+        "players": game["players"],
+        "player_stats": game["player_stats"],
+        "total_goals": game["total_goals"]
+    }
+    
+def list_games(games) -> list:
+    return [serialize_game(game) for game in games]
